@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3 control-label"> Name:</label>
+                <input id="name" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label"> Descrption::</label>
+                <input id="desc" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label"> Target:</label>
+                <input id="target" class="form-control" type="text">
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label"> </label>
+                <button id="register" class="btn btn-success">Sign Up</button>
+
+            </div>
+
+        </form>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#register').click(function(event) {
+                event.preventDefault();
+                $.ajax({
+                        type: 'POST',
+                        url: "http://127.0.0.1:3000/register",
+                        headers: {
+                            "content-type": "application/x-www-form-urlencoded"
+                        },
+                        data: {
+                            "name": $('#name').val(),
+                            "desc": $('#desc').val(),
+                            "target": $('#target').val(),
+
+
+                        },
+                        success: function(data) {
+                            //  console.log("data: ", data);
+
+
+                            alert(data);
+                            //window.location.href = "/trace";
+                        }
+                    })
+                    //console.log("Type: " , $('#myselect').val()+ " pass:  " + $('#password').val() + " User: "+ $('#name').val()  )
+            });
+        })
+    </script>
+</body>
+
+</html>

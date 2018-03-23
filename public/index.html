@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CrowdFunding</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <form>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label"> </label>
+                <button id="fetch" class="btn btn-success">Fetch</button>
+            </div>
+
+
+        </form>
+
+        <div id="display">
+
+
+            <ul id="idea">
+
+
+            </ul>
+
+            <div class="container">
+
+                <table class="table table-hover" id="ideasTable">
+
+                </table>
+            </div>
+
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#fetch').click(function(event) {
+                    event.preventDefault();
+
+                    $.ajax({
+                            type: 'POST',
+                            url: "http://127.0.0.1:3000/index",
+                            headers: {
+                                "content-type": "application/x-www-form-urlencoded"
+                            },
+                            data: {
+                                id: $('#id').val()
+                            },
+                            success: function(data) {
+                                // console.log("data: ", data);
+
+
+
+
+
+                                $('#ideasTable').append(
+                                    '<tr>' +
+                                    '<th>' + "name" + '</th>' +
+                                    '<th>' + " address" + '</th>' +
+                                    '<th>' + "required" + '</th>' +
+                                    '<th>' + "amount" + '</th>' +
+                                    '<th>' + " description " + '</th>' +
+                                    '<th>' + " unique_id " + '</th>' +
+                                    '</tr>'
+                                );
+                                for (var i = 0; i < data.length; i++) {
+                                    //   console.log("i length :" + data[i].length); //
+                                    // console.log("address ofsecond:" + data[1][2]);
+                                    $('#ideasTable').append('<tr>' +
+                                        '<td>' + data[i][0] + '</td>' +
+                                        '<td>' + data[i][1] + '</td>' +
+                                        '<td>' + data[i][2] + '</td>' +
+                                        '<td>' + data[i][3] + '</td>' +
+                                        '<td>' + data[i][4] + '</td>' +
+                                        '<td>' + i + '</td>' +
+                                        '</tr>');
+                                }
+
+                                //    var items = ["name", "address", "required", "amount", "description"];
+
+                                /*for (var i = 0; i < data.length; i++) {
+                                      //                     console.log("i length :" + data[i].length); //
+                                      //                       console.log("address ofsecond:" + data[1][2]);
+
+                                      for (var j = 0; j < data[i].length; j++) {
+                                          //   console.log("data[i][j]:" + data[i][j]);
+                                          $('#idea').append('<label :>' + items[j] + '</label>' + '<li>' + data[i][j] + '</li>');
+                                      }
+
+
+
+                                  }*/
+                                //$('#name').html(data);
+                                /*$('#add').html(data[1]);
+                                $('#target').html(data[2]);
+                                $('#amount').html(data[3]);
+                                $('#desc').html(data[4]);
+                                $('#fun').html(data[5]);
+                                $('#display').show();*/
+                                //window.location.href = "/trace";
+                            }
+                        })
+                        //console.log("Type: " , $('#myselect').val()+ " pass:  " + $('#password').val() + " User: "+ $('#name').val()  )
+                });
+            })
+        </script>
+</body>
+
+</html>
